@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Button, Image, SafeAreaView, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, Button, Image, SafeAreaView, ScrollView, Dimensions, AsyncStorage } from 'react-native';
 import { customcolours, typographystyles, sharedstyles } from '../components/AppStyles'
 import MenuButton from '../components/MenuButton'
 
@@ -62,6 +62,13 @@ export default class PrivacyScreen extends Component {
         <Text style={typographystyles.paratext}>
         We may update this Privacy Policy from time to time. Please ensure that you check the Privacy Policy on our website regularly for updates.
         </Text>
+        <Button 
+        onPress={ this._signOut } 
+        //onPress={() => _signInAsync} 
+        title="Logout" 
+        color="#b37db5"
+        style={{marginTop:20}}
+        />
         </View>
         <View style={{ flexDirection: "row" }} >
           <Image
@@ -69,12 +76,24 @@ export default class PrivacyScreen extends Component {
           source={require('../assets/banner.png')}
         />
         </View>
+        
       </ScrollView>
     </SafeAreaView>
     );
   }
+
+  _signOut = () => {
+    //await AsyncStorage.setItem('userToken', 'abc');
+    //console.log(this.state.username);
+    AsyncStorage.removeItem('userToken');
+    this.props.navigation.navigate('Auth');
+
+  };
+
 }
- 
+
+
+
 const styles = StyleSheet.create({
   MainContainer: {
     flex: 1,

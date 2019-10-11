@@ -49,8 +49,9 @@ static navigationOptions = ({ navigation }) => {
             size={24}
             color='grey' />
         <Text style={ typographystyles.heading3 }>Learning Curve Group</Text>
-        <Text style={ typographystyles.paratext }>Dunelm Rise, Durhamgate</Text>
-        <Text style={ typographystyles.paratext }>County Durham DL16 6FS</Text>
+        <Text style={ typographystyles.paratext }>Dunelm Rise, Durhamgate{ '\n' }County Durham DL16 6FS</Text>
+        <Text style={ typographystyles.paratext }>www.learningcurvegroup.co.uk</Text>
+        
         
         </View>
         </ScrollView>

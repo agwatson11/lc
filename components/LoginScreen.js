@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Button, TextInput, Image, Dimensions, ImageBackground } from 'react-native';
+import { StyleSheet, View, Text, Button, TextInput, Image, Dimensions, ImageBackground, AsyncStorage } from 'react-native';
 import { customcolours, typographystyles, panels, formstyles, buttonstyles } from '../components/AppStyles'
 import userData from '../assets/userData.json';
 const dimensions = Dimensions.get('window');
 
-
 export default class LoginScreen extends Component {
+
+  
 
   constructor(props) {
     super(props);
@@ -29,7 +30,9 @@ export default class LoginScreen extends Component {
   };
 
 
+
   render() {
+
   return (
       <View style={styles.MainContainer}>
       <ImageBackground  source={require('../assets/bg2.jpg')} style={styles.backgroundImage}>
@@ -48,7 +51,7 @@ export default class LoginScreen extends Component {
       
       />
       </View>
-      <View style={{ flex:1 }}>
+      <View onLayout={ this._rm }>
       <Button 
       onPress={ this._signInAsync } 
       //onPress={() => _signInAsync} 
@@ -67,17 +70,40 @@ export default class LoginScreen extends Component {
   );
   }
 
-  _signInAsync = () => {
+  _signInAsync = async () => {
     //await AsyncStorage.setItem('userToken', 'abc');
-    console.log(this.state.username);
-    console.log(this.state.uData);
-    if(this.state.uData[this.state.username] != undefined) {
-      resultText = 'OK'; 
+    //console.log(this.state.username);
+    
+    
+    if(this.state.username) {
+      $un = this.state.username.toLowerCase();
+      if(this.state.uData[$un] != undefined) {
+        resultText = 'OK';
+        AsyncStorage.setItem('userToken', '1');
+        this.props.navigation.navigate('App');
+      } else {
+        resultText = 'email not recognised';
+      }
     } else {
-      resultText = 'NOTOK';
+      resultText = 'email required';
     }
-    //this.props.navigation.navigate('App');
+    this.setState({resultText: resultText});
+    
   };
+
+  _rm = async () => {
+    try {
+      const value = await AsyncStorage.getItem('userToken');
+      if (value !== null) {
+        // We have data!!
+        //console.log(value);
+        this.props.navigation.navigate('App');
+      }
+    } catch (error) {
+      // Error retrieving data
+      //console.log('Error');
+    }
+  }
   
 }
 

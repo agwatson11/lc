@@ -69,7 +69,7 @@ export default class MainScreen extends Component {
         style={formstyles.textinputlarge}
         type='postal-code'
         placeholder='e.g G24 1SB'
-        maxLength={7} autoCapitalize='characters'
+        maxLength={8} autoCapitalize='characters'
         onChangeText={(postcode) => this.setState({postcode:postcode.toUpperCase()})}
         
         />
@@ -118,7 +118,7 @@ export default class MainScreen extends Component {
       }
       
     } else {
-      resultText = 'A postcode is Required'+'\n\n';
+      resultText = 'A postcode is required'+'\n\n';
     }
 
     this.setState({resultText: resultText})
