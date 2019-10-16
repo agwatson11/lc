@@ -24,7 +24,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.learningcurve.inductorapp"
+    },
+    "android": {
+      "package": "com.learningcurve.inductorapp"
     },
     "description": "The Learning Curve Inductor App allows users to check the devolved status of any postcode in England."
   }
