@@ -38,12 +38,12 @@ static navigationOptions = ({ navigation }) => {
             name="device-mobile"
             size={24}
             color='grey' />
-        <Text style={ typographystyles.heading3 }>01388 777 129</Text>
+        <Text style={ typographystyles.heading3 }>01388 741 111</Text>
         <Icon
             name="mail"
             size={24}
             color='grey' />
-        <Text style={ typographystyles.heading3 }>training@learningcurvegroup.co.uk</Text>
+        <Text style={ typographystyles.heading3 }>inductions@learningcurvegroup.co.uk</Text>
         <Icon
             name="location"
             size={24}

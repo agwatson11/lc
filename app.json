@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Learning Curve",
+    "name": "Learning Curve Inductor App",
     "slug": "learning-curve",
     "privacy": "public",
     "sdkVersion": "35.0.0",
@@ -26,6 +26,6 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": ""
+    "description": "The Learning Curve Inductor App allows users to check the devolved status of any postcode in England."
   }
 }

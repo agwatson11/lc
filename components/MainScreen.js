@@ -97,30 +97,22 @@ export default class MainScreen extends Component {
     );
   }
   
-  loadData = () => {
-    const save = (res) => {
-      return res;
-    }
-    const postcodedata = FileSystem.readAsStringAsync(FileSystem.documentDirectory + 'A.json')
-    .then(save);
-  }
 
- 
   _doLookup = () => {
 
     const displayResults = (data, pC) => {
       data = JSON.parse(data)
       if(data[pC] != undefined) {
-        if(data[pC]["S"]!="D") {
-          resultText = 
-          'Postcode: '+pC+'\n'+
-          'Non-Devolved\n\n';
-        } else {
+        if(data[pC]["E"] != undefined) {
           resultText = 
           'Postcode: '+pC+'\n'+
           'Devolved\n\n'+
           'Area: '+data[pC]["A"]+'\n'+
           'Effective: '+data[pC]["E"]+'\n';
+        } else {
+          resultText = 
+          'Postcode: '+pC+'\n'+
+          'Non-Devolved\n\n';
         }
 
       } else {
@@ -133,10 +125,10 @@ export default class MainScreen extends Component {
     Keyboard.dismiss();
 
     if(this.state.postcode) {
-      resultText = '?';
+      resultText = 'checking status...';
       $pc = this.state.postcode.replace(" ","");
       $char = $pc.substr(0,1);
-        const postcodeData = FileSystem.readAsStringAsync(FileSystem.documentDirectory + 'A.json').then(
+        const postcodeData = FileSystem.readAsStringAsync(FileSystem.documentDirectory + $char + '.json').then(
         (data)=> {
           displayResults(data, $pc);
         }
