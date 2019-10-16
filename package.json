@@ -10,6 +10,7 @@
   "dependencies": {
     "expo": "^35.0.0",
     "expo-sqlite": "^7.0.0",
+    "firebase": "^7.2.0",
     "mysql": "^2.17.1",
     "react": "16.8.3",
     "react-dom": "16.8.3",
@@ -22,7 +23,8 @@
     "react-navigation": "^4.0.10",
     "react-navigation-drawer": "^2.2.2",
     "react-navigation-stack": "^1.9.1",
-    "realm": "^3.2.0"
+    "realm": "^3.2.0",
+    "expo-asset": "~7.0.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^7.0.0"

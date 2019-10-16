@@ -79,6 +79,7 @@ const TermsStack = createStackNavigator({
     }
 });
 
+
 const MainDrawerStack = createDrawerNavigator({
     Main: {
         screen: MainStack,

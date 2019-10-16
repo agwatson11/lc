@@ -6,8 +6,6 @@ const dimensions = Dimensions.get('window');
 
 export default class LoginScreen extends Component {
 
-  
-
   constructor(props) {
     super(props);
     this.state = {
@@ -47,11 +45,9 @@ export default class LoginScreen extends Component {
       placeholder='your email'
       onChangeText={(text) => this.setState({username:text})}
       
-
-      
       />
       </View>
-      <View onLayout={ this._rm }>
+      <View>
       <Button 
       onPress={ this._signInAsync } 
       //onPress={() => _signInAsync} 
@@ -59,10 +55,7 @@ export default class LoginScreen extends Component {
       color="#b37db5"
       />
       </View> 
-      
-        
-        <Text style={typographystyles.whitetextcenter} >{this.state.resultText}</Text>
-        
+      <Text style={typographystyles.whitetextcenter} >{this.state.resultText}</Text>
       </View>
       <View style={ { flex:1 } }></View>
       </ImageBackground>
@@ -91,19 +84,6 @@ export default class LoginScreen extends Component {
     
   };
 
-  _rm = async () => {
-    try {
-      const value = await AsyncStorage.getItem('userToken');
-      if (value !== null) {
-        // We have data!!
-        //console.log(value);
-        this.props.navigation.navigate('App');
-      }
-    } catch (error) {
-      // Error retrieving data
-      //console.log('Error');
-    }
-  }
   
 }
 

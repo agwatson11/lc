@@ -9,9 +9,9 @@ import {
   Keyboard 
 } from 'react-native';
 import { customcolours, typographystyles, panels, formstyles, buttonstyles } from '../components/AppStyles'
-import MenuButton from '../components/MenuButton'
+import MenuButton from '../components/MenuButton';
+import * as FileSystem from 'expo-file-system';
 import Icon from 'react-native-vector-icons/Octicons';
-import postcodeData from '../assets/postcodeData.json';
 
 const dimensions = Dimensions.get('window');
 const imageHeight = Math.round(dimensions.width * 9 / 16);
@@ -32,13 +32,14 @@ const styles = StyleSheet.create({
   },
 });
 
+
 export default class MainScreen extends Component {
+
   constructor(props){
     super(props);
     this.state = {
       postcode: '',
-      resultText: '',
-      pcData: postcodeData
+      resultText: ''
     }
   }
   static navigationOptions = ({ navigation }) => {
@@ -54,6 +55,12 @@ export default class MainScreen extends Component {
     };
   };
 
+  componentDidMount() {
+      //this.setState({resultText: "loading data"});
+      
+      //this.setState({resultText: "loaded data"})
+  }
+
   render() {
     return (
       <View style={styles.MainContainer}>
@@ -68,7 +75,7 @@ export default class MainScreen extends Component {
         <TextInput
         style={formstyles.textinputlarge}
         type='postal-code'
-        placeholder='e.g G24 1SB'
+        placeholder='e.g G241SB'
         maxLength={8} autoCapitalize='characters'
         onChangeText={(postcode) => this.setState({postcode:postcode.toUpperCase()})}
         
@@ -89,38 +96,59 @@ export default class MainScreen extends Component {
         </View>
     );
   }
+  
+  loadData = () => {
+    const save = (res) => {
+      return res;
+    }
+    const postcodedata = FileSystem.readAsStringAsync(FileSystem.documentDirectory + 'A.json')
+    .then(save);
+  }
 
+ 
   _doLookup = () => {
-    //await AsyncStorage.setItem('userToken', 'abc');
-    console.log(this.state.postcode);
-    console.log(this.state.pcData);
-    Keyboard.dismiss();
 
-    if(this.state.postcode) {
-      $pc = this.state.postcode.replace(" ","");
-      if(this.state.pcData[$pc] != undefined) {
-        if(this.state.pcData[$pc]["Status"]!="Devolved") {
+    const displayResults = (data, pC) => {
+      data = JSON.parse(data)
+      if(data[pC] != undefined) {
+        if(data[pC]["S"]!="D") {
           resultText = 
-          'Postcode: '+$pc+'\n'+
+          'Postcode: '+pC+'\n'+
           'Non-Devolved\n\n';
         } else {
           resultText = 
-          'Postcode: '+$pc+'\n'+
+          'Postcode: '+pC+'\n'+
           'Devolved\n\n'+
-          'Area: '+this.state.pcData[$pc]["Area"]+'\n'+
-          'Effective: '+this.state.pcData[$pc]["Effective"]+'\n';
+          'Area: '+data[pC]["A"]+'\n'+
+          'Effective: '+data[pC]["E"]+'\n';
         }
-       
 
       } else {
       resultText = 'Postcode: '+this.state.postcode+'\n'+
       'Not Found\n\n'
       }
+      this.setState({resultText: resultText})
+    }
+
+    Keyboard.dismiss();
+
+    if(this.state.postcode) {
+      resultText = '?';
+      $pc = this.state.postcode.replace(" ","");
+      $char = $pc.substr(0,1);
+        const postcodeData = FileSystem.readAsStringAsync(FileSystem.documentDirectory + 'A.json').then(
+        (data)=> {
+          displayResults(data, $pc);
+        }
+        );
+      
+      
+      
       
     } else {
       resultText = 'A postcode is required'+'\n\n';
     }
-
+    
     this.setState({resultText: resultText})
     //Alert.alert(this.state.postcode)
     //this.props.navigation.navigate('App');
